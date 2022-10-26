@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script>
+
+            async function submitForm() {                  console.log("111")
+
+
+              let address = document.getElementById("address").value;
+              let addresses = address.split(" ");
+              let id = document.getElementById("id").value;
+              let fname = document.getElementById("fname").value;
+              let lname = document.getElementById("lname").value;
+              let street = document.getElementById(address[0]);
+              let number = document.getElementById(address[1]);
+              let city = document.getElementById(address[2]);
+              let birthday = document.getElementById("birthday").value;
+              let tel = document.getElementById("tel").value;
+              let pel = document.getElementById("pel").value;
+
+              let obj = {"id" : id, "name" : {"fname":fname,"lname":lname}, "address":{"street":street,"number":number,"city":city},"birthday":birthday,"tel":tel,"pel":pel};
+                console.log(obj)
+                let fetchParams = {
+                    method : 'POST',
+                    body : JSON.stringify(obj),
+                    headers : {"Content-type" : "application/json"}
+                }
+
+                let resp = await fetch("http://localhost:8000/api/clients", fetchParams);
+                if(resp.ok)
+                {
+                  console.log(resp)
+                    let status = await resp.json();
+
+                    alert(status);
+                }
+                //window.location = "RESTClient.html";
+            }
+                
+            
+        
+    </script>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body {font-family: Arial, Helvetica, sans-serif;}
+* {box-sizing: border-box;}
+
+input[type=text], select, textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  margin-top: 6px;
+  margin-bottom: 16px;
+  resize: vertical;
+}
+
+input[type=submit] {
+  background-color: #04AA6D;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+input[type=submit]:hover {
+  background-color: #45a049;
+}
+
+.container {
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  padding: 20px;
+}
+</style>
+</head>
+<body>
+
+<h3>Client Form</h3>
+
+<div class="container" >
+  <form method="post">
+    <label for="fname">First Name</label>
+    <input type="text" id="fname" name="firstname" placeholder="Your name..">
+
+    <label for="lname">Last Name</label>
+    <input type="text" id="lname" name="lastname" placeholder="Your last name..">
+
+    <label for="id">id</label>
+    <input type="text" id="id" name="id" placeholder="Your id..">
+
+    <label for="birthday">birthday</label>
+    <input type="text" id="birthday" name="birthday" placeholder="01-01-2000">
+
+    <label for="tel">tel</label>
+    <input type="text" id="tel" name="tel" placeholder="01-123-4657">
+
+    <label for="pel">pel</label>
+    <input type="text" id="pel" name="pel" placeholder="055-678-9123">
+
+    <label for="address">address</label>
+    <textarea id="address" name="addtess" placeholder="street 0 city.." ></textarea>
+
+    <input type="submit" id="btnSubmit" value="add" onclick="submitForm()">
+  </form>
+</div>
+
+</body>
+</html>

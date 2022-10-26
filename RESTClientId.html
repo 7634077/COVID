@@ -1,0 +1,73 @@
+<html>
+        <script>
+            cn=localStorage.getItem("clientNumber");
+            async function get()
+            {
+                
+                let resp = await fetch("http://localhost:8000/api/clients/"+cn)
+                if(resp.ok)
+                {
+                    let clnt = await resp.json();
+                    let lObj = document.getElementById("cUL");
+                    clntpro = clnt[0]
+                    clntcovid = clnt[1]
+                    console.log(clnt)
+                    id = document.createElement("li");
+                    id.innerText= clntpro.exId;
+
+                    birthday = document.createElement("li");
+                    birthday.innerText= "birthday: "+clntpro.birthday
+                      
+                    tname="name: "+clntpro.name.fname+" "+clntpro.name.lname
+                    cname = document.createElement("li");
+                    cname.innerText=tname
+                    
+                    taddress="address: "+clntpro.address.street+" "+clntpro.address.number+" "+clntpro.address.city
+                    caddress = document.createElement("li");
+                    caddress.innerText=taddress
+
+                    telephone = document.createElement("li");
+                    telephone.innerText= "tel: "+clntpro.tel
+                      
+                    pelephone = document.createElement("li");
+                    pelephone.innerText= "pel: "+clntpro.pel
+                      
+
+                    lObj.appendChild(id);
+                    lObj.appendChild(cname);
+                    lObj.appendChild(birthday);
+                    lObj.appendChild(caddress);
+                    lObj.appendChild(telephone);
+                    lObj.appendChild(pelephone);
+
+                }
+            }
+            async function tdelete()
+            {
+                let fetchParams = {
+                method : 'DELETE',
+                headers : {"Content-type" : "application/json"}
+            }
+
+            let resp = await fetch("http://localhost:8000/api/clients/"+cn , fetchParams);
+            if(resp.ok)
+            {
+                let status = await resp.json();
+
+                alert(status);
+                window.location.replace("RESTClient.html")
+            }
+            }
+
+                        
+        </script>
+    
+    
+    <body onload="get()">
+        <ul id="cUL"></ul>
+        <input type="button" onclick="location.href='EDITClient.html'";" value="edit" />
+        <input type="button" onclick="tdelete()" value="delete" />
+
+    </body>
+</html>
+
