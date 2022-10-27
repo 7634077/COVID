@@ -1,152 +1,64 @@
 <html>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
-
-
-<script>    
-   
-
-async function getclientsWithFetch()
-{
-    let resp = await fetch("http://localhost:8000/api/clients");
-    if(resp.ok)
-    {
-        let clnt = await resp.json();
-        let lObj = document.getElementById("tbl");
-
-        clnt.forEach(client =>
-        {
-            let cl="id:"+client.exId+" name:"+client.name.fname+" "+client.name.lname+", address: "
-            +client.address.street+" "+client.address.number+" ,"+client.address.city
-            +", birthday: "+client.birthday+", pel:"+client.pel+" ,tel:"+client.tel; 
-            
-            localStorage.setItem("clientNumber", client._id);
-
-            cLI =  document.createElement("li");
-            cLI.innerHTML= cl.link("RESTClientId.html");
-            lObj.appendChild(cLI);
-
-            // let trObj = document.createElement("tr");
-
-            // exIDTD =  document.createElement("td");
-            // exIDTD.innerText = client.exId;
-
-            // FnameTd =  document.createElement("td");
-            // FnameTd.innerText = client.name.fname;
-
-            // LnameTd =  document.createElement("td");
-            // LnameTd.innerText = client.name.lname;            
-
-            // streetTd =  document.createElement("td");
-            // streetTd.innerText = client.address.street;
-
-            // numberTd =  document.createElement("td");
-            // numberTd.innerText = client.address.number;
-
-            // addressTd =  document.createElement("td");
-            // addressTd.innerText = client.address.city;
-            
-            // trObj.appendChild(FnameTd);
-            // trObj.appendChild(LnameTd);
-            // trObj.appendChild(exIDTD);
-
-            // trObj.appendChild(streetTd);
-            // trObj.appendChild(numberTd);
-            // trObj.appendChild(addressTd);
-            // tblObj.appendChild(trObj);
-
-            // var proButton = document.createElement('button');
-            // proButton.type = 'button';
-            // proButton.innerHTML = 'properties';
-            // proButton.onclick = document.location="http://localhost:8000/api/clients/"+client._id
-
-            // var editButton = document.createElement('button');
-            // editButton.type = 'button';
-            // editButton.innerHTML = 'edit';
-
-            // var deleteButton = document.createElement('button');
-            // deleteButton.type = 'button';
-            // deleteButton.innerHTML = 'delete';
-
-            
-            // buttonTd =  document.createElement("td");
-            // buttonTd.innerText = proButton;
-            // trObj.appendChild(proButton);
-            // trObj.appendChild(editButton);
-            // trObj.appendChild(deleteButton);
+    <head>
+        <link rel="stylesheet" href="covid.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
 
 
-            //proButton.onclick = getClient(client._id)
-        })
-
+        <script>    
+           
         
-    }
-}
+        async function getclients()
+        {
+            let resp = await fetch("http://localhost:8000/api/clients");
+            if(resp.ok)
+            {
+                let clnt = await resp.json();
+                let lObj = document.getElementById("ul");
+                clnt.forEach(client =>
+                {
+                    let cl="id:"+client.id+" name:"+client.name.fname+" "+client.name.lname+", address: "
+                    +client.address.street+" "+client.address.number+" ,"+client.address.city
+                    +", birthday: "+client.birthday+", pel:"+client.pel+" ,tel:"+client.tel;     
+        
+                    cLI =  document.createElement("li");
+                    cLI.innerHTML= cl.link("RESTClientId.html?id="+client._id);
+                    lObj.appendChild(cLI);
 
-async function getClient(id)
-{
-    console.log("http://localhost:8000/api/clients/"+id)
-    let resp = await fetch("http://localhost:8000/api/clients/"+id);
-    if(resp.ok)
-    {
-        let per = await resp.json();
-
-        return(per);
-    }
-}
-
-async function addClient()
-{
-    window.location = "ADDClient.html";
-
-}
-
-async function updateClient()
-{
-    let obj = {fname : 'test11', lname : 'test22', city : 'test33', age : 5};
-
-    let fetchParams = {
-        method : 'PUT',
-        body : JSON.stringify(obj),
-        headers : {"Content-type" : "application/json"}
-    }
-
-    let resp = await fetch("http://localhost:8000/api/clients/602aa57e73d4241a7829ce6e", fetchParams);
-    if(resp.ok)
-    {
-        let status = await resp.json();
-
-        alert(status);
-    }
-}
-
-async function deleteClient()
-{
-
-    let fetchParams = {
-        method : 'DELETE',
-        headers : {"Content-type" : "application/json"}
-    }
-
-    let resp = await fetch("http://localhost:8000/api/clients/602aa57e73d4241a7829ce6e", fetchParams);
-    if(resp.ok)
-    {
-        let status = await resp.json();
-
-        alert(status);
-    }
-}
+                })
+        
+                
+            }
+        }
+        
+        async function getClient(id)
+        {
+            console.log("http://localhost:8000/api/clients/"+id)
+            let resp = await fetch("http://localhost:8000/api/clients/"+id);
+            if(resp.ok)
+            {
+                let per = await resp.json();
+        
+                return(per);
+            }
+        }
+        
+        async function addClient()
+        {
+            window.location = "ADDClient.html";
+        
+        }   
+        </script>
+    </head>
 
 
-</script>
 
 
 <body>
-    
-<input type="button" value="Get All clients(With Fetch)" onclick="getclientsWithFetch()">
-<input type="button" value="Add client" onclick="addClient()">
-
-<ul   id="tbl">
+    <div class="container">
+        <input type="button" value="Get All clients" onclick="getclients()">
+        <input type="button" value="Add client" onclick="addClient()">
+    </div>
+<ul   id="ul">
 
 </table>
 
