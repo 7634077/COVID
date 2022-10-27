@@ -55,28 +55,26 @@ const getclient = function(id)
 
 const addclient = function(clnt)
 {
+
     return new Promise((resolve, reject) =>
         {
             const p = new clientModel({
                 name:{fname:clnt.name.fname, lname:clnt.name.lname},
-                addresses : {city : clnt.address.city, street : clnt.address.street,number:clnt.address.number},
+                address : {city : clnt.address.city, street : clnt.address.street,number:clnt.address.number},
                 birthday :clnt.birthday,
                 tel:clnt.tel,
                 pel:clnt.pel,           
                 id:clnt.id
 
         });
-    
         p.save(function(err)
         {
             if(err)
             {
-                console.log("ggg")
                 reject(err)
             }
             else
             {
-                console.log("ggg")
 
                 resolve('OK');
             }
@@ -91,7 +89,7 @@ const updateclient = function(id,clnt)
         clientModel.findByIdAndUpdate(id,
             {
                 name:{fname:clnt.name.fname, lname:clnt.name.lname},
-                addresses : {city : clnt.address.city, street : clnt.address.street,number:clnt.address.number},
+                address : {city : clnt.address.city, street : clnt.address.street,number:clnt.address.number},
                 birthday :clnt.birthday,
                 tel:clnt.tel,
                 pel:clnt.pel,           
@@ -105,7 +103,6 @@ const updateclient = function(id,clnt)
                 }
                 else
                 {
-                    console.log("aeaeaea")
                     resolve('Updated');
                 }
             })

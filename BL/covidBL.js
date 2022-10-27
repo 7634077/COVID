@@ -22,7 +22,7 @@ const getAllcovids = function()
 }
 
 const getcovid = function(id)
-{    console.log(id)
+{    
 
     return new Promise((resolve,reject) =>
     {
@@ -33,8 +33,7 @@ const getcovid = function(id)
                 reject(err);
             }
             else
-            {    console.log(cov)
-
+            {    
                 resolve(cov);
             }
         })

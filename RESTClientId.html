@@ -10,12 +10,6 @@
                 localStorage.setItem("clientNumber", l);
                 cn=localStorage.getItem("clientNumber");
 
-                console.log("id:"+cn)
-
-                // temp = parameters[1].split("=");
-                // p = unescape(temp[1]);
-                // document.getElementById("log").innerHTML = l;
-                // document.getElementById("pass").innerHTML = p;
                 
                 let resp = await fetch("http://localhost:8000/api/clients/"+cn)
                 if(resp.ok)
@@ -54,8 +48,9 @@
 
                     let vObj = document.getElementById("vaccUL");
                     clntcovid = clnt[1]
-
-                    sick = document.createElement("li");
+                    if (clntcovid)
+                    {
+                        sick = document.createElement("li");
                     sick.innerText= "sick date: "+clntcovid.sickDate;
 
                     recov = document.createElement("li");
@@ -66,7 +61,6 @@
                     let i =0;
                     clntcovid.vacc.forEach(v => {
                         i++;
-                        console.log(i,v);
 
                         date = document.createElement("li");
                         date.innerText="the "+i+"vacc date: "+ v.fDate;
@@ -78,6 +72,8 @@
                         vObj.appendChild(maker);
 
                      });
+                    }
+                    
                 }
             }
             async function tdelete()

@@ -16,6 +16,7 @@
                 let lObj = document.getElementById("ul");
                 clnt.forEach(client =>
                 {
+                    console.log("clnt",clnt)
                     let cl="id:"+client.id+" name:"+client.name.fname+" "+client.name.lname+", address: "
                     +client.address.street+" "+client.address.number+" ,"+client.address.city
                     +", birthday: "+client.birthday+", pel:"+client.pel+" ,tel:"+client.tel;     

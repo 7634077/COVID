@@ -9,6 +9,7 @@
               
               let addresses = document.getElementById("address").value;
               let address = addresses.split(" ");
+
               let id = document.getElementById("id").value;
               let fname = document.getElementById("fname").value;
               let lname = document.getElementById("lname").value;
@@ -18,16 +19,19 @@
               let birthday = document.getElementById("birthday").value;
               let tel = document.getElementById("tel").value;
               let pel = document.getElementById("pel").value;
-console.log("address",street)
-              let obj = {"id" : id, "name" : {"fname":fname,"lname":lname}, "address":{"street":street,"number":number,"city":city},"birthday":birthday,"tel":tel,"pel":pel};
-                console.log(obj)
+              let obj = {"id" : id, "name" : {"fname":fname,"lname":lname},
+               "address":{"street":street,"number":number,"city":city},"birthday":birthday,"tel":tel,"pel":pel};
                 let fetchParams = {
                     method : 'POST',
                     body : JSON.stringify(obj),
                     headers : {"Content-type" : "application/json"}
                 }
 
+                console.log("888")
+
                 let resp = await fetch("http://localhost:8000/api/clients", fetchParams);
+                console.log(resp)
+
                 if(resp.ok)
                 {
                   console.log(resp)
@@ -71,7 +75,7 @@ console.log("address",street)
     <input type="text" id="pel" name="pel" placeholder="055-678-9123" required="required">
 
     <label for="address">address</label>
-    <textarea id="address" name="addtess" placeholder="street 0 city.." required="required"></textarea>
+    <textarea id="address" name="address" placeholder="street 0 city.." required="required"></textarea>
 
     <input type="submit" id="btnSubmit" value="add" >
   </form>
